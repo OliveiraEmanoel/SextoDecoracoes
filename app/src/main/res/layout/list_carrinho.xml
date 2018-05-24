@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlCarrinho"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvNomeItem"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvQdadeItem"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvNomeItem"
+        android:layout_alignBottom="@+id/tvNomeItem"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/tvNomeItem"
+        android:layout_toRightOf="@+id/tvNomeItem"
+        android:text="1000" />
+
+    <TextView
+        android:id="@+id/tvValorItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/tvQdadeItem"
+        android:layout_toRightOf="@+id/tvQdadeItem"
+        android:text="TextView" />
+
+    <CheckBox
+        android:id="@+id/cbExcluir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:forceHasOverlappingRendering="false" />
+</RelativeLayout>

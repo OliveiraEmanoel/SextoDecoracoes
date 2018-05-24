@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Produtos">
+
+            <menu>
+
+                <!--<item-->
+                    <!--android:id="@+id/nav_poltrona"-->
+                    <!--android:icon="@drawable/ic_poltrona"-->
+                    <!--android:title="Poltrona" />-->
+                <!--<item-->
+                    <!--android:id="@+id/nav_sofa"-->
+                    <!--android:icon="@drawable/ic_sofa"-->
+                    <!--android:title="Sofá" />-->
+                <item
+                    android:id="@+id/nav_almofada"
+                    android:icon="@drawable/ic_almofada"
+                    android:title="Almofadas" />
+
+                <!--<item-->
+                    <!--android:id="@+id/nav_cadastro"-->
+                    <!--android:icon="@drawable/ic_note_add"-->
+                    <!--android:enabled="false"-->
+                    <!--android:title="Cadastrar" />-->
+
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Finalizar">
+        <menu>
+            <item
+                android:id="@+id/nav_cart"
+                android:icon="@drawable/ic_cart_black_24dp"
+                android:title="Carrinho" />
+            <item
+                android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_exit"
+                android:title="Sair" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.emanoel.oliveira.sextodecoracoes.activities.Editar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivFotoProdutoEditar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/borda"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/almofada_verde" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tiNomeEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignLeft="@+id/llDescription"
+            android:layout_alignStart="@+id/llDescription"
+            android:layout_below="@+id/ivFotoProdutoEditar"
+            android:layout_marginTop="21dp">
+
+            <EditText
+                android:id="@+id/etNomeEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nome do produto"
+                android:inputType="textPersonName"
+                android:textAllCaps="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tiValorEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tiNomeEditar"
+            android:layout_alignStart="@+id/tiNomeEditar"
+            android:layout_below="@+id/tiNomeEditar"
+            android:layout_marginTop="17dp">
+
+
+            <EditText
+                android:id="@+id/etValorEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+                android:hint="Valor R$ 00.00"
+                android:inputType="numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tiValorEditar"
+            android:layout_alignStart="@+id/tiValorEditar"
+            android:layout_below="@+id/tiValorEditar"
+            android:layout_marginTop="15dp"
+
+            android:text="Descrição" />
+
+        <LinearLayout
+            android:id="@+id/llDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ivFotoProduto"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/borda"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiTamanhoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp">
+
+
+                <EditText
+                    android:id="@+id/etTamanhoEditar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+
+                    android:hint="Tamanho? (ex.: 30cm/30cm)"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiTecidoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp">
+
+
+                <EditText
+                    android:id="@+id/etTecidoEditar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tecido?"
+                    android:inputType="text"
+                    android:textAllCaps="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiDetalhesEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:textAllCaps="true"
+                android:layout_marginTop="16dp">
+
+
+                <EditText
+                    android:id="@+id/etDetalhesEditar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Detalhes?"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btLimparDescriptionEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Limpar descrição" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btSalvarProdutoEditar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/llDescription"
+            android:layout_alignRight="@+id/llDescription"
+            android:layout_below="@+id/llDescription"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/borda_laranja"
+            android:text="Salvar" />
+
+        <Button
+            android:id="@+id/btDeletarProdutoEditar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvTitle"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/tvTitle"
+
+            android:background="@drawable/borda_red"
+            android:text="Deletar" />
+
+    </RelativeLayout>
+
+</ScrollView>

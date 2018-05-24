@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "442454969650",
+    "firebase_url": "https://sextodecoraes.firebaseio.com",
+    "project_id": "sextodecoraes",
+    "storage_bucket": "sextodecoraes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442454969650:android:d48d53a858d20822",
+        "android_client_info": {
+          "package_name": "br.com.emanoel.oliveira.sextodecoraes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442454969650-bethufq410e3vkn1ul5m87nj7f2ij2cd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.emanoel.oliveira.sextodecoraes",
+            "certificate_hash": "a144f17807b272542136f3172f92f2ac8f000ae4"
+          }
+        },
+        {
+          "client_id": "442454969650-cqe4h3hhnq4bepnntolntrjj4u67oo0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpfldZeHF1L9fChPBpVubIF-RuffHfEIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442454969650-cqe4h3hhnq4bepnntolntrjj4u67oo0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
