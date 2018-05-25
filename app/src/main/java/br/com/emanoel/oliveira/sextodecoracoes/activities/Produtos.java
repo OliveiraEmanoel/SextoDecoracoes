@@ -97,12 +97,20 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
                 for(DataSnapshot roupasSnapshot : dataSnapshot.getChildren()){
                     roupa = roupasSnapshot.getValue(Almofada.class);
-                    if (roupa.getIsActive()){
+                    //checa se é ativo e se é novidade
+                    //todo e quando quero mostrar todas???
+                    if (roupa.getIsActive() && (roupa.isNew() == isNovidade)){
                         roupasArrayList.add(roupa);
                         //produtoKey.add(indice,roupasSnapshot.getKey());
                         Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
                         //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
 
+                    }else if (roupa.getIsActive() && roupa.isNew() == false){
+
+                        roupasArrayList.add(roupa);
+                        //produtoKey.add(indice,roupasSnapshot.getKey());
+                        Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
+                        //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
                     }
                                     }
                 setLayoutAdapter();
@@ -183,9 +191,12 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         if (id == R.id.nav_almofada) {
-
+            isNovidade = false;
             startActivity(new Intent(getApplicationContext(), Produtos.class));
-        } else if (id == R.id.nav_cart) {
+        }else if (id == R.id.nav_almofada_novidades) {
+            isNovidade =true;
+            startActivity(new Intent(getApplicationContext(), Produtos.class));
+        }else if (id == R.id.nav_cart) {
 
             if (nroItensCart < 0) {
                 Toast.makeText(getApplicationContext(),"Carrinho vazio!!",Toast.LENGTH_SHORT).show();
@@ -203,6 +214,8 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 }

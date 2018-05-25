@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     public static double totalCart;
     public static boolean rvHasClicked = false; //used to monitor if recyclerView has received a click
     public static boolean userIsAdmin = false;//used to check if user can add new products on database
+    public static boolean isNovidade = true; //used to show only news products from database
 
     public static List<Produto_Tecido> getCart() {
         if(cart == null) {
@@ -152,5 +153,6 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }

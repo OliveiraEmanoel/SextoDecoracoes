@@ -60,7 +60,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tiValor"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tiNome"
             android:layout_alignStart="@+id/tiNome"
@@ -77,6 +77,18 @@
                 android:inputType="numberDecimal" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cb_NewProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tiValor"
+            android:layout_alignEnd="@+id/tiNome"
+            android:layout_alignRight="@+id/tiNome"
+            android:layout_alignTop="@+id/tiValor"
+            android:layout_weight="1"
+            android:text="Lançamento"
+            android:textColor="#f57803" />
 
         <TextView
             android:id="@+id/tvTitle"

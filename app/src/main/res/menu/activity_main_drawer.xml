@@ -6,28 +6,30 @@
     <group android:checkableBehavior="single">
         <item android:title="Produtos">
 
-            <menu>
 
-                <!--<item-->
-                    <!--android:id="@+id/nav_poltrona"-->
-                    <!--android:icon="@drawable/ic_poltrona"-->
-                    <!--android:title="Poltrona" />-->
-                <!--<item-->
-                    <!--android:id="@+id/nav_sofa"-->
-                    <!--android:icon="@drawable/ic_sofa"-->
-                    <!--android:title="Sofá" />-->
-                <item
-                    android:id="@+id/nav_almofada"
-                    android:icon="@drawable/ic_almofada"
-                    android:title="Almofadas" />
 
-                <!--<item-->
-                    <!--android:id="@+id/nav_cadastro"-->
-                    <!--android:icon="@drawable/ic_note_add"-->
-                    <!--android:enabled="false"-->
-                    <!--android:title="Cadastrar" />-->
+                <item android:title="Almofadas" >
 
-            </menu>
+                    <menu>
+
+                        <item
+                            android:id="@+id/nav_almofada_novidades"
+                            android:icon="@drawable/ic_almofada"
+                            android:title="Só as novidades"
+                            />
+                        <item
+                            android:id="@+id/nav_almofada"
+                            android:icon="@drawable/ic_almofada"
+                            android:title="Todas"
+                            />
+
+                    </menu>
+
+
+
+                </item>
+
+
         </item>
     </group>
 

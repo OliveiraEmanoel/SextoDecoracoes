@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -45,6 +47,7 @@ public class CadastroProdutos extends BaseActivity {
     private String codigoRef;
     private String photoUrl,description,dataEntrada;
     private boolean isActive = true;
+    private CheckBox cbNewProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class CadastroProdutos extends BaseActivity {
         etTamanho = findViewById(R.id.etTamanho);
         etValor = findViewById(R.id.etValor);
         etDetalhes = findViewById(R.id.etDetalhes);
+        cbNewProduct = findViewById(R.id.cb_NewProduct);
 
         btBrouse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +89,15 @@ public class CadastroProdutos extends BaseActivity {
                 etTamanho.setText("");
                 etTecido.setText("");
                 etDetalhes.setText("");
+            }
+        });
+
+        cbNewProduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    isNovidade = true;
+                }else {isNovidade = false;}
             }
         });
 
@@ -115,7 +128,7 @@ public class CadastroProdutos extends BaseActivity {
                             etTamanho.getText().toString(),
                             etTecido.getText().toString(),
                             codigoRef,
-                            isActive);
+                            isActive,isNovidade);
 
 
             }
@@ -123,10 +136,10 @@ public class CadastroProdutos extends BaseActivity {
     }
 
     private void addRegistro(String nome, double price,String description,String fotoPath,String dataIn,
-                             String tamanho,String tecido,String codigo,boolean isActive) {
+                             String tamanho,String tecido,String codigo,boolean isActive,boolean isNew) {
 
 
-        Almofada almofada = new Almofada(nome,price,description,photoUrl,dataIn,tamanho,tecido,codigo,isActive);
+        Almofada almofada = new Almofada(nome,price,description,photoUrl,dataIn,tamanho,tecido,codigo,isActive,isNew);
 
 
 
@@ -169,7 +182,7 @@ public class CadastroProdutos extends BaseActivity {
                 valid = false;
             } else {
                 etTecido.setError(null);
-                description = etTecido.getText().toString();
+                //description = etTecido.getText().toString();
             }
             String valGG = etDetalhes.getText().toString();
             if (TextUtils.isEmpty(valGG)) {
@@ -177,7 +190,7 @@ public class CadastroProdutos extends BaseActivity {
                 valid = false;
             } else {
                 etDetalhes.setError(null);
-                description = description + etDetalhes.getText().toString();
+                description = etDetalhes.getText().toString();
             }
         } else{
 

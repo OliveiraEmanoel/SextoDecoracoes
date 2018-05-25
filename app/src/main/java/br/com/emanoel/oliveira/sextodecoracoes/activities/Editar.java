@@ -36,12 +36,13 @@ import butterknife.OnClick;
 
 public class Editar extends BaseActivity {
 
-    /**
+    /**todo
      * obter chav/codigo do arquivo
      * atualizar os dados
      * deletar se for o caso
      * atualizar imagem do produto se necessário, clicando na imagem
      * o codigo de referencia mudara se deletarmos arquivos...usar o key?
+     * setar isActive to false if delete button is clicked and check if isNew is/remains true/false
      * */
 
     @BindView(R.id.ivFotoProdutoEditar)
