@@ -8,28 +8,32 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.common.data.DataBufferObserver;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.emanoel.oliveira.sextodecoracoes.R;
-import br.com.emanoel.oliveira.sextodecoracoes.activities.CheckoutActivity;
+import br.com.emanoel.oliveira.sextodecoracoes.activities.BaseActivity;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Produto_Tecido;
 
 /**
  * Created by Emanoel de Oliveira on 22/01/2018.
  */
 
-public class NovoAdapter extends BaseAdapter {
+public class NovoAdapter extends BaseAdapter implements DataBufferObserver.Observable{
 
     private List<Produto_Tecido> mListProdutoTedido;
     private LayoutInflater layoutInflater;
     private boolean mShowCheckbox;
+    public ArrayList<Long> posArray = new ArrayList<>();
     DecimalFormat f = new DecimalFormat("R$ 0.00");
     long posItem;
-    ArrayList<Long> posArray = new ArrayList<>();
+    double total;
+    Produto_Tecido curProduct;
+    BaseActivity baseActivity;
 
     public NovoAdapter(List<Produto_Tecido> mListProdutoTedido, LayoutInflater layoutInflater, boolean showCheckbox) {
         this.mListProdutoTedido = mListProdutoTedido;
@@ -74,11 +78,11 @@ public class NovoAdapter extends BaseAdapter {
             item = (ViewItem) convertView.getTag();
         }
 
-        final Produto_Tecido curProduct = mListProdutoTedido.get(position);
+        curProduct = mListProdutoTedido.get(position);
 
         item.nameEstampa.setText(curProduct.getNomeEstampa());
         item.qdade.setText(String.valueOf(curProduct.getQdade()));
-        double total = curProduct.getQdade() * curProduct.getPrice();
+        total = curProduct.getQdade() * curProduct.getPrice();
         item.valor.setText(f.format(total));
         item.cbox.isChecked();
 
@@ -88,11 +92,14 @@ public class NovoAdapter extends BaseAdapter {
                 if (b) {
                     item.cbox.setChecked(true);
                     Log.d("NOVO_ADAPTER", "getView: " + curProduct.getNomeEstampa() + "  position: " + getItemId(position));
-                    posArray.add(getItemId(position));
-                }else{
-                    //todo verificr se não vai dar erro de null pointer na arraylist
-                    posArray.remove(getItemId(position));
-                    Log.d("NOVO_ADAPTER", "onCheckedChanged: " + posArray.size());
+                    mListProdutoTedido.remove(position);
+                    Log.d("NOV0_Adapter", "onCheckedChanged: " + baseActivity.cart.size());
+                    notifyDataSetChanged();//atualiza list
+                    baseActivity.cart.notifyAll();
+                    //atualiza preço
+
+                   baseActivity.totalCart = atualizaTotal();
+                    Log.d("NOV0_Adapter", "onCheckedChanged: totalcart = " + baseActivity.totalCart);
                 }
             }
         });
@@ -113,8 +120,27 @@ public class NovoAdapter extends BaseAdapter {
        
 
     }
-    
-    
+
+    @Override
+    public void addObserver(DataBufferObserver dataBufferObserver) {
+
+    }
+
+    @Override
+    public void removeObserver(DataBufferObserver dataBufferObserver) {
+
+    }
+
+    public double atualizaTotal(){
+
+        total = curProduct.getQdade() * curProduct.getPrice();
+
+        baseActivity.totalCart = baseActivity.totalCart - total;
+        //item.valor.setText(f.format(total));
+
+        return baseActivity.totalCart;
+    }
+
 
     private class ViewItem {
         TextView nameEstampa;

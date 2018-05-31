@@ -41,6 +41,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
     //DatabaseReference myRef;
     private final String TAG = "READING_FROM_DATABASE";
     private Almofada roupa;
+    //private boolean isNovidade = true;
 
     private Unbinder unbinder;
 
@@ -64,12 +65,10 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         ButterKnife.bind(this);
         rvToYou = findViewById(R.id.rvToYou);
 
-//        if (!persistence){
-//            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-//            persistence = true;
-//        }
-
-        initializeData();
+        //todo isso não estáfuncionando
+        if(isNovidade) {
+            initializeData();
+        }else {initializeDataForAll();}
 
         setLayoutAdapter();
 
@@ -82,6 +81,49 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         roupasArrayList.clear();//clear previous data
 
+        
+        //reference to database
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("produtos");
+
+
+            // Read from the database
+            myRef.child("almofadas").orderByChild("new").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
+                        roupa = roupasSnapshot.getValue(Almofada.class);
+                        //checa se é ativo e se é novidade
+                        //todo e quando quero mostrar todas???
+                        if (roupa.getIsActive()) {
+                            roupasArrayList.add(roupa);
+                            //produtoKey.add(indice,roupasSnapshot.getKey());
+                            Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
+                            //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
+
+                        }
+                    }
+                    setLayoutAdapter();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+
+
+    }
+
+    private void initializeDataForAll() {
+
+        roupasArrayList = new ArrayList<>();
+
+        roupasArrayList.clear();//clear previous data
 
 
         //reference to database
@@ -89,40 +131,41 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("produtos");
 
-        // Read from the database
-        myRef.child("almofadas").addValueEventListener(new ValueEventListener() {
+       //showing all
+            // Read from the database
+            myRef.child("almofadas").addListenerForSingleValueEvent(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot roupasSnapshot : dataSnapshot.getChildren()){
-                    roupa = roupasSnapshot.getValue(Almofada.class);
-                    //checa se é ativo e se é novidade
-                    //todo e quando quero mostrar todas???
-                    if (roupa.getIsActive() && (roupa.isNew() == isNovidade)){
-                        roupasArrayList.add(roupa);
-                        //produtoKey.add(indice,roupasSnapshot.getKey());
-                        Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
-                        //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
+                    for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
+                        roupa = roupasSnapshot.getValue(Almofada.class);
+                        //checa se é ativo e se é novidade
+                        //todo e quando quero mostrar todas???
+                        if (roupa.getIsActive()) {
+                            roupasArrayList.add(roupa);
+                            //produtoKey.add(indice,roupasSnapshot.getKey());
+                            Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
+                            //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
 
-                    }else if (roupa.getIsActive() && roupa.isNew() == false){
-
-                        roupasArrayList.add(roupa);
-                        //produtoKey.add(indice,roupasSnapshot.getKey());
-                        Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
-                        //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
+                        }
                     }
-                                    }
-                setLayoutAdapter();
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+                    setLayoutAdapter();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+
+
+
+
 
     }
+
 
     private void setLayoutAdapter(){
 
@@ -131,9 +174,14 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         rvToYou.setHasFixedSize(true);
         rvToYou.setLayoutManager(llm);
+
         //setting adapter
         adapter = new ProdutoRecyclerViewAdapter(Produtos.this, roupasArrayList);
+
+        adapter.notifyDataSetChanged();
+
         rvToYou.setAdapter(adapter);
+
 
     }
     @Override
@@ -194,7 +242,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
             isNovidade = false;
             startActivity(new Intent(getApplicationContext(), Produtos.class));
         }else if (id == R.id.nav_almofada_novidades) {
-            isNovidade =true;
+            isNovidade = true;
             startActivity(new Intent(getApplicationContext(), Produtos.class));
         }else if (id == R.id.nav_cart) {
 

@@ -32,7 +32,6 @@ public class BaseActivity extends AppCompatActivity {
     SimpleDateFormat sdf;
     GlobalUserID globalUserID;
     FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
-    //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     DatabaseReference myRef = mFirebaseDatabase.getReference("produtos");
     android.support.v7.app.ActionBar actionBar;
     DecimalFormat value = new DecimalFormat("0.00");
@@ -41,11 +40,12 @@ public class BaseActivity extends AppCompatActivity {
     public static ArrayList<Produto_Tecido> produtoTedidoArrayList = new ArrayList<>();
     public static List<Produto_Tecido> cart;
     public ArrayList<String> produtoKey = new ArrayList<>();
+
     public static int nroItensCart;//vou usar como indice do array
     public static double totalCart;
     public static boolean rvHasClicked = false; //used to monitor if recyclerView has received a click
     public static boolean userIsAdmin = false;//used to check if user can add new products on database
-    public static boolean isNovidade = true; //used to show only news products from database
+    public  boolean isNovidade; //used to show only news products from database
 
     public static List<Produto_Tecido> getCart() {
         if(cart == null) {

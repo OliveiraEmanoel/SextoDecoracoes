@@ -2,11 +2,9 @@ package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -74,8 +72,8 @@ public class CarrinhoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //back to main
+                startActivity(new Intent(getApplicationContext(), Produtos.class));
 
-                onBackPressed();
             }
         });
     }

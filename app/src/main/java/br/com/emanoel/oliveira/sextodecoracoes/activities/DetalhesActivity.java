@@ -17,7 +17,6 @@ import br.com.emanoel.oliveira.sextodecoracoes.R;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Produto_Tecido;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DetalhesActivity extends BaseActivity {
 
@@ -38,6 +37,8 @@ public class DetalhesActivity extends BaseActivity {
     EditText etOrigemProdutoDetalhes;
     @BindView(R.id.etValorProdutoDetalhes)
     EditText etValorProdutoDetalhes;
+    @BindView(R.id.etQdadeDetalhes)
+    EditText etQdadeDetalhes;
     private ImageView ivAddCart;
     final List<Produto_Tecido> cart = getCart();
     int position;
@@ -48,7 +49,7 @@ public class DetalhesActivity extends BaseActivity {
     String tamanhoProduto;
     String tecido;
     String description;
-    int qdade=1;
+    int qdade = 1;
 
     Produto_Tecido produtoTedido;
 
@@ -147,10 +148,8 @@ public class DetalhesActivity extends BaseActivity {
 
         }
 
-
         ivAddCart = findViewById(R.id.ivAddCart);
         //ivSample = findViewById(R.id.ivSample);
-
 
         ivAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,20 +165,22 @@ public class DetalhesActivity extends BaseActivity {
                     valorTecido = 0.00;
                     intent.putExtra("valor", valorTecido);
                 }
+                qdade = Integer.parseInt(etQdadeDetalhes.getText().toString());
 
-                cart.add(new Produto_Tecido(nameFabric, valorTecido,1, selected));
+                if(qdade<1){qdade = 1;}
+                intent.putExtra("qdade",qdade);
+
+                cart.add(new Produto_Tecido(nameFabric, valorTecido, qdade, selected));
                 nroItensCart++;
-                totalCart = totalCart + valorTecido * qdade;//varial que guarda a soma dos valores dos itens
+                totalCart = totalCart + valorTecido * qdade;//variavel que guarda a soma dos valores dos itens
                 //intent.putExtra("image position", actualPosition);
 
                 startActivity(intent);
-
 
             }
         });
 
     }
-
 
 
 }

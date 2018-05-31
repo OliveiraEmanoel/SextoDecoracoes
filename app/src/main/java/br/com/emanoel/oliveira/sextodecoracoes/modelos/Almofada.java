@@ -14,7 +14,7 @@ public class Almofada {
     String tamanho;
     String tecido;
     String codigo;
-    boolean isActive, isNew;
+    boolean isActive, isNovidade;
 
 
     public Almofada() {
@@ -22,7 +22,7 @@ public class Almofada {
 
     public Almofada(String nome, Double price, String description,
                     String fotoPath, String dataIn, String tamanho,
-                    String tecido,String codigo,boolean isActive, boolean isNew) {
+                    String tecido,String codigo,boolean isActive, boolean isNovidade) {
         this.nome = nome;
         this.price = price;
         this.description = description;
@@ -32,7 +32,7 @@ public class Almofada {
         this.tecido = tecido;
         this.codigo = codigo;
         this.isActive = isActive;
-        this.isNew = isNew;
+        this.isNovidade = isNovidade;
     }
 
     public String getNome() {
@@ -108,11 +108,11 @@ public class Almofada {
         isActive = active;
     }
 
-    public boolean isNew() {
-        return isNew;
+    public boolean isNovidade() {
+        return isNovidade;
     }
 
-    public void setNew(boolean aNew) {
-        isNew = aNew;
+    public void setNovidade(boolean aNew) {
+        isNovidade = aNew;
     }
 }

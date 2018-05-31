@@ -136,16 +136,10 @@ public class CadastroProdutos extends BaseActivity {
     }
 
     private void addRegistro(String nome, double price,String description,String fotoPath,String dataIn,
-                             String tamanho,String tecido,String codigo,boolean isActive,boolean isNew) {
+                             String tamanho,String tecido,String codigo,boolean isActive,boolean isNovidade) {
 
-
-        Almofada almofada = new Almofada(nome,price,description,photoUrl,dataIn,tamanho,tecido,codigo,isActive,isNew);
-
-
-
+        Almofada almofada = new Almofada(nome,price,description,photoUrl,dataIn,tamanho,tecido,codigo,isActive,isNovidade);
         myRef.child("almofadas").push().setValue(almofada);
-
-
     }
 
     private boolean validate() {

@@ -55,6 +55,16 @@
                 android:layout_toEndOf="@+id/textView16"
                 android:layout_toRightOf="@+id/textView16"
                 android:text="Valor" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_toEndOf="@+id/textView18"
+                android:layout_toRightOf="@+id/textView18"
+                android:text="Excluir" />
 
             <ListView
                 android:id="@+id/lvCheckout"
@@ -90,24 +100,11 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:text="ValorTotal" />
 
-            <Button
-                android:id="@+id/btExcluirItens"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/lvCheckout"
-                android:layout_alignRight="@+id/lvCheckout"
-                android:layout_below="@+id/lvCheckout"
-                android:layout_marginTop="11dp"
-
-                android:background="@drawable/borda_red"
-
-                android:text="Excluir" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_below="@+id/btExcluirItens"
-                android:layout_marginTop="8dp"
+                android:layout_below="@+id/tvTotalCheckout"
+                android:layout_marginTop="16dp"
                 android:background="#000000"
                 android:id="@+id/view" />
 
