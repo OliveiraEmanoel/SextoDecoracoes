@@ -81,9 +81,9 @@ public class Editar extends BaseActivity {
     private long itemCount;
     private String codigoRef;
     private String photoUrl, description, dataEntrada;
-    private boolean isActive = true;
     private double price;
     String codigo;
+    private String chaveProduto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,7 @@ public class Editar extends BaseActivity {
         final String tamanhoProduto = bundle.getString("Tamanho");
         final String tecido = bundle.getString("Tecido");
         final String description = bundle.getString("Description");
+        chaveProduto = bundle.getString("ProdutoId");
 
         photoUrl = imagePath;
 
@@ -130,6 +131,7 @@ public class Editar extends BaseActivity {
         etTecidoEditar.setText(tecido);
         etValorEditar.setText(value.format(price));
         etDetalhesEditar.setText(description);
+
 
         cbNewProductEditar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -183,24 +185,7 @@ public class Editar extends BaseActivity {
     @OnClick(R.id.btSalvarProdutoEditar)
     public void onBtSalvarProdutoEditarClicked() {
 
-        validate();
-
-        if (!validate()) {
-            return;
-        }
-
-        String nome = etNomeEditar.getText().toString();
-        String preço = etValorEditar.getText().toString();
-        preço = preço.replaceAll(",",".");
-        price = Double.parseDouble(preço);
-        String tamanho = etTamanhoEditar.getText().toString();
-        String tecido = etTecidoEditar.getText().toString();
-
-
-        Almofada almofada = new Almofada(nome, price, description, photoUrl, dataEntrada, tamanho, tecido, codigo, isActive, isNovidade);
-        myRef.child("almofadas").orderByChild("codigo").equalTo(codigo);
-        myRef.setValue(almofada);
-
+       updateDados(true);
 
 
     }
@@ -208,10 +193,7 @@ public class Editar extends BaseActivity {
     @OnClick(R.id.btDeletarProdutoEditar)
     public void onBtDeletarProdutoEditarClicked() {
 
-        isActive = false;
-
-        btSalvarProdutoEditar.callOnClick();
-
+        updateDados(false);
 
     }
 
@@ -283,7 +265,7 @@ public class Editar extends BaseActivity {
         if (photoUrl != null) {
 
 
-            String nome = etNomeEditar.getText().toString();
+            String nome = etNomeEditar.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(nome)) {
                 etNomeEditar.setError(getString(R.string.obrigatorio));
                 valid = false;
@@ -305,7 +287,7 @@ public class Editar extends BaseActivity {
             } else {
                 etTamanhoEditar.setError(null);
             }
-            String valG = etTecidoEditar.getText().toString();
+            String valG = etTecidoEditar.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(valG)) {
                 etTecidoEditar.setError(getString(R.string.obrigatorio));
                 valid = false;
@@ -313,13 +295,13 @@ public class Editar extends BaseActivity {
                 etTecidoEditar.setError(null);
                 //description = etTecido.getText().toString();
             }
-            String valGG = etDetalhesEditar.getText().toString();
+            String valGG = etDetalhesEditar.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(valGG)) {
                 etDetalhesEditar.setError(getString(R.string.obrigatorio));
                 valid = false;
             } else {
                 etDetalhesEditar.setError(null);
-                description = etDetalhesEditar.getText().toString();
+                description = etDetalhesEditar.getText().toString().toUpperCase();
             }
         } else {
 
@@ -327,6 +309,29 @@ public class Editar extends BaseActivity {
             valid = false;
         }
         return valid;
+
+    }
+
+    private void updateDados(boolean isActive){
+
+        validate();
+
+        if (!validate()) {
+            return;
+        }
+
+        String nome = etNomeEditar.getText().toString().toUpperCase();
+        String preço = etValorEditar.getText().toString();
+        preço = preço.replaceAll(",",".");
+        price = Double.parseDouble(preço);
+        String tamanho = etTamanhoEditar.getText().toString();
+        String tecido = etTecidoEditar.getText().toString().toUpperCase();
+
+
+        Almofada almofada = new Almofada(nome, price, description, photoUrl, dataEntrada, tamanho, tecido, codigo, isActive, isNovidade);
+        myRef.child("almofadas/" + chaveProduto).setValue(almofada);
+
+
 
     }
 }

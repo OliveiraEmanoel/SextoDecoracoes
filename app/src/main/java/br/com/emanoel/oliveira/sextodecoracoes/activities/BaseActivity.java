@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
     SimpleDateFormat sdf;
     GlobalUserID globalUserID;
     FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+    //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     DatabaseReference myRef = mFirebaseDatabase.getReference("produtos");
     android.support.v7.app.ActionBar actionBar;
     DecimalFormat value = new DecimalFormat("0.00");
@@ -39,13 +41,14 @@ public class BaseActivity extends AppCompatActivity {
     public static ArrayList<String> globalArray = new ArrayList<>();
     public static ArrayList<Produto_Tecido> produtoTedidoArrayList = new ArrayList<>();
     public static List<Produto_Tecido> cart;
-    public ArrayList<String> produtoKey = new ArrayList<>();
+    public static ArrayList<String> produtoKey = new ArrayList<>();
 
     public static int nroItensCart;//vou usar como indice do array
     public static double totalCart;
+    public static int qdadePecas;
     public static boolean rvHasClicked = false; //used to monitor if recyclerView has received a click
     public static boolean userIsAdmin = false;//used to check if user can add new products on database
-    public  boolean isNovidade; //used to show only news products from database
+    public static boolean isNovidade = true; //used to show only news products as default from database
 
     public static List<Produto_Tecido> getCart() {
         if(cart == null) {
@@ -116,9 +119,12 @@ public class BaseActivity extends AppCompatActivity {
             return (Runtime.getRuntime().exec(command).waitFor() == 0);
 
         } catch (Exception e) {
+            Log.e("BaseActivity", "Error checking internet connection", e);
             return false;
         }
     }
+
+
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
@@ -153,6 +159,8 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
 
 }

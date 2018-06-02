@@ -2,6 +2,7 @@ package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ public class DetalhesActivity extends BaseActivity {
     String imagePath;
     String codigo;
     double price;
+    private String chaveProduto;
     String tamanhoProduto;
     String tecido;
     String description;
@@ -75,6 +77,9 @@ public class DetalhesActivity extends BaseActivity {
         tamanhoProduto = bundle.getString("Tamanho");
         tecido = bundle.getString("Tecido");
         description = bundle.getString("Description");
+        chaveProduto = bundle.getString("ProdutoId");
+
+        Log.e("Detalhes", "onCreate: " + "ChaveProduto= " + chaveProduto);
 
         tvNomeFabricDetails.setText(nameFabric);
         etCodigoProdutoDetalhes.setText(codigo);
@@ -88,6 +93,7 @@ public class DetalhesActivity extends BaseActivity {
         etDescricaoProdutoDetalhes.setText(description);
         etDescricaoProdutoDetalhes.setInputType(0);
 
+        etQdadeDetalhes.setSelectAllOnFocus(true);//evita que valores padroes se sobreponham
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Detalhes");
@@ -112,6 +118,7 @@ public class DetalhesActivity extends BaseActivity {
                     intent.putExtra("Tecido", tecido);
                     intent.putExtra("Description", description);
                     intent.putExtra("Position", position);
+                    intent.putExtra("ProdutoId", chaveProduto);
 
                     startActivity(intent);
                     return true;
@@ -157,7 +164,7 @@ public class DetalhesActivity extends BaseActivity {
 
                 Intent intent = new Intent(getApplicationContext(), CarrinhoActivity.class);
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra("nomeTecido", nameFabric);
+                intent.putExtra("nomeTecido", codigo);
                 if (!sample) {
                     valorTecido = price;
                     intent.putExtra("valor", valorTecido);
@@ -165,13 +172,21 @@ public class DetalhesActivity extends BaseActivity {
                     valorTecido = 0.00;
                     intent.putExtra("valor", valorTecido);
                 }
-                qdade = Integer.parseInt(etQdadeDetalhes.getText().toString());
+                try {
+                    qdade = Integer.parseInt(etQdadeDetalhes.getText().toString());
+                } catch (Exception e) {
+                    Toast.makeText(DetalhesActivity.this, "É preciso digitar a qdade desejada!", Toast.LENGTH_SHORT).show();
+                    etQdadeDetalhes.setText("2");
+                }
 
-                if(qdade<1){qdade = 1;}
-                intent.putExtra("qdade",qdade);
+                if (qdade < 1) {
+                    qdade = 2;
+                }
+                intent.putExtra("qdade", qdade);
 
-                cart.add(new Produto_Tecido(nameFabric, valorTecido, qdade, selected));
+                cart.add(new Produto_Tecido(codigo, valorTecido, qdade, selected));
                 nroItensCart++;
+                qdadePecas = +qdade;
                 totalCart = totalCart + valorTecido * qdade;//variavel que guarda a soma dos valores dos itens
                 //intent.putExtra("image position", actualPosition);
 

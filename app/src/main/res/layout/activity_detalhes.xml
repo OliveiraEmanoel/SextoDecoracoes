@@ -113,6 +113,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
 
             >
 
@@ -171,7 +172,9 @@
                     android:id="@+id/etQdadeDetalhes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Qdade"
+                    android:hint="Digite a qdade desejada"
+                    android:text=" "
+                    android:textColorHint="#ff0000"
                     android:inputType="number"
 
                     android:textAlignment="center" />

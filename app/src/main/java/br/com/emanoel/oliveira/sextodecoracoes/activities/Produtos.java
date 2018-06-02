@@ -37,11 +37,12 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
     RecyclerView rvToYou;
     ProdutoRecyclerViewAdapter adapter;
     private List<Almofada> roupasArrayList;
+
     static Boolean persistence = false;
     //DatabaseReference myRef;
     private final String TAG = "READING_FROM_DATABASE";
     private Almofada roupa;
-    //private boolean isNovidade = true;
+
 
     private Unbinder unbinder;
 
@@ -67,6 +68,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         //todo isso não estáfuncionando
         if(isNovidade) {
+            Log.e("Produtos", "Novidade = " + isNovidade);
             initializeData();
         }else {initializeDataForAll();}
 
@@ -81,6 +83,8 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         roupasArrayList.clear();//clear previous data
 
+        produtoKey.clear();
+
         
         //reference to database
 
@@ -89,20 +93,19 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
 
             // Read from the database
-            myRef.child("almofadas").orderByChild("new").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            myRef.child("almofadas").orderByChild("novidade").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
                         roupa = roupasSnapshot.getValue(Almofada.class);
-                        //checa se é ativo e se é novidade
-                        //todo e quando quero mostrar todas???
+
                         if (roupa.getIsActive()) {
                             roupasArrayList.add(roupa);
-                            //produtoKey.add(indice,roupasSnapshot.getKey());
+                            produtoKey.add(roupasSnapshot.getKey());
                             Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
-                            //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
+
 
                         }
                     }
@@ -125,6 +128,8 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         roupasArrayList.clear();//clear previous data
 
+        produtoKey.clear();
+
 
         //reference to database
 
@@ -140,13 +145,12 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
                     for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
                         roupa = roupasSnapshot.getValue(Almofada.class);
-                        //checa se é ativo e se é novidade
-                        //todo e quando quero mostrar todas???
+
                         if (roupa.getIsActive()) {
                             roupasArrayList.add(roupa);
-                            //produtoKey.add(indice,roupasSnapshot.getKey());
+                            produtoKey.add(roupasSnapshot.getKey());
                             Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
-                            //Log.d(TAG, "GETTING_KEY: " + produtoKey.get());//Todo tem de colocar um indice...
+
 
                         }
                     }
@@ -253,7 +257,6 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
             }
         } else if (id == R.id.nav_sair) {
 
-            finish();
             System.exit(0);
 
         }

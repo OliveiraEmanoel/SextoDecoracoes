@@ -18,6 +18,7 @@ public class CarrinhoActivity extends BaseActivity {
 
     ListView list;
     TextView totalValorLista;
+    TextView qdadeTotalLista;
     NovoAdapter myAdapter;
     Button btFinalizar;
     Button btAddItem;
@@ -37,7 +38,7 @@ public class CarrinhoActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
         if (savedInstanceState != null) {
-            nameEstampa = bundle.getString("nomeTecido");
+            nameEstampa = bundle.getString("nomeTecido");//codigo
             valor = bundle.getDouble("valor");
             qdade = bundle.getInt("qdade");
         }
@@ -50,10 +51,13 @@ public class CarrinhoActivity extends BaseActivity {
         totalValorLista = findViewById(R.id.tvValorTotCarrinho);
         totalValorLista.setText(f.format(totalCart));
 
+        qdadeTotalLista = findViewById(R.id.tvQdadeTotalCarrinho);
+        qdadeTotalLista.setText(String.valueOf(qdadePecas));
+
         list = findViewById(R.id.lvCarrinho);
         checkBox = findViewById(R.id.cbExcluir);
 
-        myAdapter = new NovoAdapter(mCart, getLayoutInflater(), false);
+        myAdapter = new NovoAdapter(mCart, getLayoutInflater(), false,null);
 
         list.setAdapter(myAdapter);
 

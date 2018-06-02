@@ -17,6 +17,7 @@ import java.util.List;
 
 import br.com.emanoel.oliveira.sextodecoracoes.R;
 import br.com.emanoel.oliveira.sextodecoracoes.activities.BaseActivity;
+import br.com.emanoel.oliveira.sextodecoracoes.activities.CheckoutActivity;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Produto_Tecido;
 
 /**
@@ -28,18 +29,28 @@ public class NovoAdapter extends BaseAdapter implements DataBufferObserver.Obser
     private List<Produto_Tecido> mListProdutoTedido;
     private LayoutInflater layoutInflater;
     private boolean mShowCheckbox;
+    private Myinterface listener;
     public ArrayList<Long> posArray = new ArrayList<>();
     DecimalFormat f = new DecimalFormat("R$ 0.00");
     long posItem;
     double total;
+    String TAG = "NovoAdapter";
     Produto_Tecido curProduct;
     BaseActivity baseActivity;
+    CheckoutActivity checkoutActivity;
 
-    public NovoAdapter(List<Produto_Tecido> mListProdutoTedido, LayoutInflater layoutInflater, boolean showCheckbox) {
+    public NovoAdapter(List<Produto_Tecido> mListProdutoTedido, LayoutInflater layoutInflater, boolean showCheckbox, Myinterface listener) {
         this.mListProdutoTedido = mListProdutoTedido;
         this.layoutInflater = layoutInflater;
         this.mShowCheckbox = showCheckbox;
+        this.listener = listener;
     }
+
+    public interface Myinterface {
+
+        void atualizaValorTotal(double valor);
+    }
+
 
     @Override
     public int getCount() {
@@ -83,22 +94,24 @@ public class NovoAdapter extends BaseAdapter implements DataBufferObserver.Obser
         item.nameEstampa.setText(curProduct.getNomeEstampa());
         item.qdade.setText(String.valueOf(curProduct.getQdade()));
         total = curProduct.getQdade() * curProduct.getPrice();
+
+        //totalzão igual totalzão + total(position)
         item.valor.setText(f.format(total));
         item.cbox.isChecked();
 
         item.cbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
                 if (b) {
                     item.cbox.setChecked(true);
                     Log.d("NOVO_ADAPTER", "getView: " + curProduct.getNomeEstampa() + "  position: " + getItemId(position));
                     mListProdutoTedido.remove(position);
                     Log.d("NOV0_Adapter", "onCheckedChanged: " + baseActivity.cart.size());
                     notifyDataSetChanged();//atualiza list
-                    baseActivity.cart.notifyAll();
-                    //atualiza preço
 
-                   baseActivity.totalCart = atualizaTotal();
+                    listener.atualizaValorTotal(atualizaTotal());
+
                     Log.d("NOV0_Adapter", "onCheckedChanged: totalcart = " + baseActivity.totalCart);
                 }
             }
@@ -111,8 +124,8 @@ public class NovoAdapter extends BaseAdapter implements DataBufferObserver.Obser
                 item.cbox.setChecked(true);
                 Log.d("NOVO_ADAPTER", "getView: " + position);
 
-            }else
-            item.cbox.setChecked(false);
+            }else{
+            item.cbox.setChecked(false);}
         }
 
         return convertView;
@@ -133,12 +146,20 @@ public class NovoAdapter extends BaseAdapter implements DataBufferObserver.Obser
 
     public double atualizaTotal(){
 
-        total = curProduct.getQdade() * curProduct.getPrice();
+        int totalItens = getCount();//tamanho da lista
+        double totalGeral = 0;
+        Log.e(TAG, "atualizaTotal: "+ "total de itens = " + totalItens );
 
-        baseActivity.totalCart = baseActivity.totalCart - total;
-        //item.valor.setText(f.format(total));
+        for (int i = 0; i < totalItens ; i++) {
 
-        return baseActivity.totalCart;
+             totalGeral =+ mListProdutoTedido.get(i).getPrice()*mListProdutoTedido.get(i).getQdade();
+
+            Log.e(TAG, "atualizaTotal: " + "total geral = "+ totalGeral );
+
+        }
+
+       return totalGeral;
+
     }
 
 

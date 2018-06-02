@@ -120,13 +120,13 @@ public class CadastroProdutos extends BaseActivity {
 
                 Log.d("SALVANDO_DADOS", "onClick: " + codigoRef);
 
-                addRegistro(etNome.getText().toString(),
+                addRegistro(etNome.getText().toString().toUpperCase(),
                             Double.parseDouble(etValor.getText().toString()),
                             description,
                             photoUrl,
                             dataEntrada,
                             etTamanho.getText().toString(),
-                            etTecido.getText().toString(),
+                            etTecido.getText().toString().toUpperCase(),
                             codigoRef,
                             isActive,isNovidade);
 
@@ -148,7 +148,7 @@ public class CadastroProdutos extends BaseActivity {
         if (imageURI!=null) {
 
 
-            String nome = etNome.getText().toString();
+            String nome = etNome.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(nome)) {
                 etNome.setError(getString(R.string.obrigatorio));
                 valid = false;
@@ -170,7 +170,7 @@ public class CadastroProdutos extends BaseActivity {
             } else {
                 etTamanho.setError(null);
             }
-            String valG = etTecido.getText().toString();
+            String valG = etTecido.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(valG)) {
                 etTecido.setError(getString(R.string.obrigatorio));
                 valid = false;
@@ -178,13 +178,13 @@ public class CadastroProdutos extends BaseActivity {
                 etTecido.setError(null);
                 //description = etTecido.getText().toString();
             }
-            String valGG = etDetalhes.getText().toString();
+            String valGG = etDetalhes.getText().toString().toUpperCase();
             if (TextUtils.isEmpty(valGG)) {
                 etDetalhes.setError(getString(R.string.obrigatorio));
                 valid = false;
             } else {
                 etDetalhes.setError(null);
-                description = etDetalhes.getText().toString();
+                description = etDetalhes.getText().toString().toUpperCase();
             }
         } else{
 

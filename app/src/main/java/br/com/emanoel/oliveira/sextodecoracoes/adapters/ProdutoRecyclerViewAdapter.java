@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import br.com.emanoel.oliveira.sextodecoracoes.R;
+import br.com.emanoel.oliveira.sextodecoracoes.activities.BaseActivity;
 import br.com.emanoel.oliveira.sextodecoracoes.activities.DetalhesActivity;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Almofada;
 import butterknife.BindView;
@@ -142,7 +143,7 @@ public class ProdutoRecyclerViewAdapter extends RecyclerView.Adapter<ProdutoRecy
             intent.putExtra("Tecido", almofada.getTecido());
             intent.putExtra("Description", almofada.getDescription());
             intent.putExtra("Position",position);
-            intent.putExtra("UserId", "DEFAULT");//NO USER LOGED YET
+            intent.putExtra("ProdutoId", BaseActivity.produtoKey.get(position));
 
             getContext().startActivity(intent);
         }
