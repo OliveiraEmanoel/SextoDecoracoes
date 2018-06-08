@@ -1,5 +1,6 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,12 +23,14 @@ import java.util.Vector;
 
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.GlobalUserID;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Produto_Tecido;
+import br.com.uol.pslibs.checkout_in_app.PSCheckout;
+import br.com.uol.pslibs.checkout_in_app.wallet.util.PSCheckoutConfig;
 
 /**
  * Created by USUARIO on 25/09/2017.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements PayFragment.OnFragmentInteractionListener{
 
     Calendar myCalendar;
     String myFormat = "dd-MM-yyyy";
@@ -51,19 +55,19 @@ public class BaseActivity extends AppCompatActivity {
     public static boolean isNovidade = true; //used to show only news products as default from database
 
     public static List<Produto_Tecido> getCart() {
-        if(cart == null) {
+        if (cart == null) {
             cart = new Vector<Produto_Tecido>();
         }
 
         return cart;
     }
 
-    public Boolean isUserAdmin(String user){
+    public Boolean isUserAdmin(String user) {
 
-        if (user.equals("emanoel_oliveira@hotmail.com") || user.equals("ed@wxtex.com.br") || user.equals("emanoel@wxtex.com.br")){
+        if (user.equals("emanoel_oliveira@hotmail.com") || user.equals("ed@wxtex.com.br") || user.equals("emanoel@wxtex.com.br")) {
             userIsAdmin = true;
             return userIsAdmin;
-        }else {
+        } else {
 
             return userIsAdmin;
         }
@@ -113,26 +117,28 @@ public class BaseActivity extends AppCompatActivity {
         hideProgressDialog();
 
     }
+
     public boolean isConnected() {
         try {
             String command = "ping -c 1 firebase.google.com";
             return (Runtime.getRuntime().exec(command).waitFor() == 0);
 
+
         } catch (Exception e) {
             Log.e("BaseActivity", "Error checking internet connection", e);
             return false;
+
         }
     }
-
 
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
 
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
+            String[] proj = {MediaStore.Images.Media.DATA};
 
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
@@ -147,8 +153,8 @@ public class BaseActivity extends AppCompatActivity {
         Cursor cursor = null;
 
         try {
-            String[] proj = { MediaStore.Images.Media.DISPLAY_NAME };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            String[] proj = {MediaStore.Images.Media.DISPLAY_NAME};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
 
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME);// getColumnIndexOrThrow(MediaStore.Images.Media.TITLE);
             cursor.moveToFirst();
@@ -162,5 +168,41 @@ public class BaseActivity extends AppCompatActivity {
 
 
 
+    public void myToastCurto(String mensagem) {
 
+        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void myToastlongo(String mensagem) {
+
+        Toast.makeText(getApplicationContext(), mensagem, Toast.LENGTH_LONG).show();
+
+    }
+
+    public void startPagseguroLib(String emailSeller, String tokenSeller, int layoutID, Activity activity) {
+
+
+
+        //Inicialização a lib com parametros necessarios
+        PSCheckoutConfig psCheckoutConfig = new PSCheckoutConfig();
+        psCheckoutConfig.setSellerEmail(emailSeller);
+        psCheckoutConfig.setSellerToken(tokenSeller);
+        //Informe o fragment container
+        psCheckoutConfig.setContainer(layoutID);
+
+        //Inicializa apenas os recursos de pagamento transparente e boleto
+        PSCheckout.initTransparent(activity, psCheckoutConfig);
+
+        //Caso queira inicializar todos os recursos da lib
+        //PSCheckout.init(getActivity(), psCheckoutConfig);
+
+
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

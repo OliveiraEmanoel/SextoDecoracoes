@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<string-array name="bandeiras">
+
+    <item>MASTERCARD</item>
+    <item>VISA</item>
+    <item>DINNERS</item>
+    <item>AMEX</item>
+
+</string-array>

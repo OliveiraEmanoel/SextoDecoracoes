@@ -1,5 +1,6 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import java.util.List;
 import br.com.emanoel.oliveira.sextodecoracoes.R;
 import br.com.emanoel.oliveira.sextodecoracoes.adapters.ProdutoRecyclerViewAdapter;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Almofada;
+import br.com.uol.pslibs.checkout_in_app.PSCheckout;
+import br.com.uol.pslibs.checkout_in_app.wallet.util.PSCheckoutConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -65,6 +68,9 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         ButterKnife.bind(this);
         rvToYou = findViewById(R.id.rvToYou);
+
+        startPagseguroLib("emanoel_oliveira@hotmail.com",
+                "B47679B87C564831B6049737174735BD",R.layout.fragment_pay,this);
 
         //todo isso não estáfuncionando
         if(isNovidade) {
@@ -165,9 +171,6 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
             });
 
 
-
-
-
     }
 
 
@@ -209,6 +212,9 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
             MenuItem menuItem = menu.findItem(R.id.action_cadastro);
             menuItem.setVisible(true);
 
+            MenuItem configItem = menu.findItem(R.id.action_settings);
+            configItem.setVisible(true);
+
         }
 
         return true;
@@ -223,6 +229,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this,ConfigActivity.class));
             return true;
 
         } else if (id == R.id.action_cadastro) {
@@ -266,7 +273,30 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         return true;
     }
 
+    public void startPagseguroLib(String emailSeller, String tokenSeller, int layoutID, Activity activity) {
 
+
+        //Inicialização a lib com parametros necessarios
+        PSCheckoutConfig psCheckoutConfig = new PSCheckoutConfig();
+        psCheckoutConfig.setSellerEmail(emailSeller);
+        psCheckoutConfig.setSellerToken(tokenSeller);
+        //Informe o fragment container
+        psCheckoutConfig.setContainer(layoutID);
+
+        //Inicializa apenas os recursos de pagamento transparente e boleto
+        PSCheckout.initTransparent(activity, psCheckoutConfig);
+
+        //Caso queira inicializar todos os recursos da lib
+        //PSCheckout.init(getActivity(), psCheckoutConfig);
+
+
+    }
+
+    //inicialização da biblioteca do pagseguro
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        PSCheckout.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
 
 
 }

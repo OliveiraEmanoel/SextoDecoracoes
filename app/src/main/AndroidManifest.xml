@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:grantUriPermissions="true" />
@@ -72,6 +75,18 @@
             android:label="Editar produtos"
             android:parentActivityName=".activities.Produtos"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ConfigActivity"
+            android:label="Configurações"
+            android:parentActivityName=".activities.Produtos"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.PagamentoActivity"
+            android:label="Efetuando pagamento"
+            android:parentActivityName=".activities.Produtos"
+            android:screenOrientation="portrait">
+
+
+        </activity>
     </application>
 
 </manifest>

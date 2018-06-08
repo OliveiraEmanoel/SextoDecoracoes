@@ -108,6 +108,18 @@
                 android:background="#000000"
                 android:id="@+id/view" />
 
+            <Button
+                android:id="@+id/btEfetuarPagamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="34dp"
+                android:text="Efetuar pagamento"
+                android:textColor="#ffffff"
+                android:background="@drawable/borda_accent"/>
+
+
         </RelativeLayout>
 
 
