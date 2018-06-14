@@ -3,6 +3,8 @@ package br.com.emanoel.oliveira.sextodecoracoes.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -64,6 +66,19 @@ public class PagamentoActivity extends BaseActivity{
                         }
                     }
                 });
+
+        spBandeira.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                etBandeira.setText(spBandeira.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 

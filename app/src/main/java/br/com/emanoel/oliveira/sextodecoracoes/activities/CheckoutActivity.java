@@ -1,5 +1,6 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -78,7 +79,7 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
                    // gerarBoleto();
 
-                    //(new Intent(getApplicationContext(),PagamentoActivity.class));
+                    startActivity(new Intent(getApplicationContext(),PagamentoActivity.class));
 
                 }else Toast.makeText(getApplicationContext(),"Não há itens no pedido!!",Toast.LENGTH_SHORT).show();
             }
