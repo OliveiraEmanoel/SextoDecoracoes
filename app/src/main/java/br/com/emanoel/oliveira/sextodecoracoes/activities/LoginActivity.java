@@ -26,8 +26,8 @@ import br.com.emanoel.oliveira.sextodecoracoes.modelos.GlobalUserID;
 public class LoginActivity extends BaseActivity {
 
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "AUTH_FIREBASE";
     private String email;
     private String password;
@@ -43,7 +43,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
 
         internet = false;
@@ -73,12 +72,13 @@ public class LoginActivity extends BaseActivity {
         etSenha = findViewById(R.id.eT_senha_login);
 
 
-
         //setting up firebese auth
-        mAuth = FirebaseAuth.getInstance();
-
+        try {
+            mAuth = FirebaseAuth.getInstance();
+        } catch (Exception error) {
+            Log.e(TAG, "Setting instance: " + error);
+        }
         globalUserID = (GlobalUserID) getApplication(); //getApplicationContext();
-
 
 
         //checking if user exists
@@ -131,15 +131,15 @@ public class LoginActivity extends BaseActivity {
         btEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (btEntrar.getText().toString().equals("Cadastrar")){
-                   //setting email and password
-                   email = etEmail.getText().toString();
-                   password = etSenha.getText().toString();
+                if (btEntrar.getText().toString().equals("Cadastrar")) {
+                    //setting email and password
+                    email = etEmail.getText().toString();
+                    password = etSenha.getText().toString();
 
-                   cadastrar(email, password);
-               } else {
-                   entrar();
-               }
+                    cadastrar(email, password);
+                } else {
+                    entrar();
+                }
 
 
             }
@@ -188,29 +188,35 @@ public class LoginActivity extends BaseActivity {
         showProgressDialog();
 
         //Create account
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+        try {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
 
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
-                        } else {
+                            if (!task.isSuccessful()) {
+//                                Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException(),
+//                                        Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
+                            } else {
 
-                            Toast.makeText(LoginActivity.this, R.string.auth_success,
-                                    Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.auth_success,
+                                        Toast.LENGTH_SHORT).show();
 
-                            entrar();
+                                entrar();
 
+                            }
+                            hideProgressDialog();
+                            // ...
                         }
-                        hideProgressDialog();
-                        // ...
-                    }
-                });
+                    });
+        } catch (Exception error) {
+
+            myToastCurto(error.toString());
+        }
     }
 
     private void entrar() {

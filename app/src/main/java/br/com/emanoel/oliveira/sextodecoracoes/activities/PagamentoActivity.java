@@ -1,30 +1,38 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.visa.checkout.CheckoutButton;
+import com.visa.checkout.VisaCheckoutSdk;
+import com.visa.checkout.VisaPaymentSummary;
 
 import br.com.emanoel.oliveira.sextodecoracoes.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class PagamentoActivity extends BaseActivity implements PayFragment.OnFragmentInteractionListener{
+public class PagamentoActivity extends BaseActivity{
 
-//    @BindView(R.id.etBandeira)
-//    EditText etBandeira;
-//    @BindView(R.id.spBandeira)
-//    Spinner spBandeira;
-//    @BindView(R.id.etNomeTitularCartao)
-//    EditText etNomeTitularCartao;
-//    @BindView(R.id.etNumeroCartao)
-//    EditText etNumeroCartao;
-//    @BindView(R.id.etExpira)
-//    EditText etExpira;
-//    @BindView(R.id.etCVV)
-//    EditText etCVV;
+    @BindView(R.id.etBandeira)
+    EditText etBandeira;
+    @BindView(R.id.spBandeira)
+    Spinner spBandeira;
+    @BindView(R.id.etNomeTitularCartao)
+    EditText etNomeTitularCartao;
+    @BindView(R.id.etNumeroCartao)
+    EditText etNumeroCartao;
+    @BindView(R.id.etExpira)
+    EditText etExpira;
+    @BindView(R.id.etCVV)
+    EditText etCVV;
 //    @BindView(R.id.wallet_payment_button)
 //    PaymentButton walletPaymentButton;
-//    AppCompatActivity appCompatActivity = this;
+    AppCompatActivity appCompatActivity = this;
+
+    private static final String TAG = PagamentoActivity.class.getSimpleName();
 
 
 
@@ -32,36 +40,30 @@ public class PagamentoActivity extends BaseActivity implements PayFragment.OnFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagamento);
-        //ButterKnife.bind(this);
-
-        Fragment fragment = new PayFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        ButterKnife.bind(this);
 
 
-
-
-
-
-
-//        //Inicialização a lib com parametros necessarios
-//       PSCheckoutConfig psCheckoutConfig = new PSCheckoutConfig();
-//        psCheckoutConfig.setSellerEmail("emanoel_oliveira@hotmail.com");
-//        psCheckoutConfig.setSellerToken("B47679B87C564831B6049737174735BD");
-//        //Informe o fragment container
-//        //psCheckoutConfig.setContainer(this);
-//
-//        //Inicializa apenas os recursos de pagamento transparente e boleto
-//
-//        PSCheckout.init(appCompatActivity, psCheckoutConfig);
-//
-//        //Caso queira inicializar todos os recursos da lib
-//        //PSCheckout.init(getActivity(), psCheckoutConfig);
-
-
+        CheckoutButton checkoutButton = findViewById(R.id.visaCheckoutButton);
+        checkoutButton.init(this, ConfigureVisaPaymentInfo.getProfile(),
+                ConfigureVisaPaymentInfo.getPurchaseInfo(),
+                new VisaCheckoutSdk.VisaCheckoutResultListener() {
+                    @Override
+                    public void onResult(VisaPaymentSummary visaPaymentSummary) {
+                        if (VisaPaymentSummary.PAYMENT_SUCCESS.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Success");
+                        } else if (VisaPaymentSummary.PAYMENT_CANCEL.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Canceled");
+                        } else if (VisaPaymentSummary.PAYMENT_ERROR.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Error");
+                        } else if (VisaPaymentSummary.PAYMENT_FAILURE.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Generic Unknown failure");
+                        }
+                    }
+                });
 
     }
 
@@ -138,8 +140,5 @@ public class PagamentoActivity extends BaseActivity implements PayFragment.OnFra
 //        }
 //    };
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_dialog_tamanho"
     android:layout_width="300dp"
     android:layout_height="300dp"
@@ -32,7 +35,7 @@
         android:layout_marginTop="40dp"
         android:scaleType="fitCenter"
         android:layout_gravity="center"
-        android:src="@drawable/sem_internet" />
+        app:srcCompat="@drawable/sem_internet" />
 
     <Button
         android:id="@+id/btDialog"

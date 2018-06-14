@@ -1,6 +1,5 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,14 +22,12 @@ import java.util.Vector;
 
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.GlobalUserID;
 import br.com.emanoel.oliveira.sextodecoracoes.modelos.Produto_Tecido;
-import br.com.uol.pslibs.checkout_in_app.PSCheckout;
-import br.com.uol.pslibs.checkout_in_app.wallet.util.PSCheckoutConfig;
 
 /**
  * Created by USUARIO on 25/09/2017.
  */
 
-public class BaseActivity extends AppCompatActivity implements PayFragment.OnFragmentInteractionListener{
+public class BaseActivity extends AppCompatActivity {
 
     Calendar myCalendar;
     String myFormat = "dd-MM-yyyy";
@@ -180,29 +177,5 @@ public class BaseActivity extends AppCompatActivity implements PayFragment.OnFra
 
     }
 
-    public void startPagseguroLib(String emailSeller, String tokenSeller, int layoutID, Activity activity) {
 
-
-
-        //Inicialização a lib com parametros necessarios
-        PSCheckoutConfig psCheckoutConfig = new PSCheckoutConfig();
-        psCheckoutConfig.setSellerEmail(emailSeller);
-        psCheckoutConfig.setSellerToken(tokenSeller);
-        //Informe o fragment container
-        psCheckoutConfig.setContainer(layoutID);
-
-        //Inicializa apenas os recursos de pagamento transparente e boleto
-        PSCheckout.initTransparent(activity, psCheckoutConfig);
-
-        //Caso queira inicializar todos os recursos da lib
-        //PSCheckout.init(getActivity(), psCheckoutConfig);
-
-
-    }
-
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

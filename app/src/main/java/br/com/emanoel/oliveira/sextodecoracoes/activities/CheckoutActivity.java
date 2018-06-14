@@ -1,6 +1,5 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +47,11 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
 
 
+
+        //startPagseguroLib("emanoel_oliveira@hotmail.com",
+               // "B47679B87C564831B6049737174735BD",R.layout.activity_checkout,this);
+
+
         //myAdapter.atualizaTotal();
 
         list = findViewById(R.id.lvCheckout);
@@ -72,8 +76,9 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
                     * salvar pedido
                     * */
 
+                   // gerarBoleto();
 
-                    startActivity(new Intent(getApplicationContext(),PagamentoActivity.class));
+                    //(new Intent(getApplicationContext(),PagamentoActivity.class));
 
                 }else Toast.makeText(getApplicationContext(),"Não há itens no pedido!!",Toast.LENGTH_SHORT).show();
             }
@@ -87,4 +92,82 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
         //totalValorCheckout.setText(f.format(valor));
     }
+
+//    public void gerarBoleto(){
+//
+//        PSBilletRequest psBilletRequest = new PSBilletRequest();
+//        psBilletRequest
+//                .setDocumentNumber("99404021040")
+//                .setName("João da Silva")
+//                .setEmail("joao.silva@teste.com")
+//                .setAreaCode("34")
+//                .setPhoneNumber("999508523")
+//                .setStreet("Rua Tapajos")
+//                .setAddressComplement("")
+//                .setAddressNumber("23")
+//                .setDistrict("Saraiva")
+//                .setCity("Uberlândia")
+//                .setState("MG")
+//                .setCountry("BRA")
+//                .setPostalCode("38408414")
+//                .setTotalValue(50.00)
+//                .setAmount(50.00)
+//                .setDescriptionPayment("Pagamento do teste de integração")
+//                .setQuantity(1);
+//                //.setNottificationUrl("https://pagseguro.uol.com.br");
+//
+//        PSCheckout.generateBooklet(psBilletRequest, psBilletListener, this);
+//
+//        myToastCurto("boleto gerado!!");
+//
+//    }
+//    private PSBilletListener psBilletListener = new PSBilletListener() {
+//        @Override
+//        public void onSuccess(PaymentResponseVO responseVO) {
+//           String codigoBarras = responseVO.getBookletNumber();// - número do código de barras do boleto
+//            String urlLink = responseVO.getPaymentLink();// - link para download do boleto
+//
+//            myToastCurto(codigoBarras);
+//        }
+//
+//        @Override
+//        public void onFailure(Exception e) {
+//
+//            myToastCurto(e.toString());
+//
+//            Log.e(TAG, "onFailure: "+ e.toString());
+//            // Error
+//        }
+//
+//        @Override
+//        public void onProcessing() {
+//            myToastCurto("processing...");
+//            // Progress
+//        }
+//    };
+//
+//    public void startPagseguroLib(String emailSeller, String tokenSeller, int layoutID, Activity activity) {
+//
+//
+//        //Inicialização a lib com parametros necessarios
+//        PSCheckoutConfig psCheckoutConfig = new PSCheckoutConfig();
+//        psCheckoutConfig.setSellerEmail(emailSeller);
+//        psCheckoutConfig.setSellerToken(tokenSeller);
+//        //Informe o fragment container
+//        psCheckoutConfig.setContainer(layoutID);
+//
+//        //Inicializa apenas os recursos de pagamento transparente e boleto
+//        PSCheckout.initTransparent(activity, psCheckoutConfig);
+//
+//        //Caso queira inicializar todos os recursos da lib
+//        //PSCheckout.init(getActivity(), psCheckoutConfig);
+//
+//
+//    }
+//
+//    //inicialização da biblioteca do pagseguro
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        PSCheckout.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+//    }
 }
