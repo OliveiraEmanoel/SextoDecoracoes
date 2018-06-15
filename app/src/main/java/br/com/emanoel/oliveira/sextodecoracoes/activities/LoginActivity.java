@@ -221,6 +221,8 @@ public class LoginActivity extends BaseActivity {
 
     private void entrar() {
 
+        showProgressDialog();
+
         Log.d(TAG, "signIn:" + email);
 
         if (!validateForm()) {
@@ -229,35 +231,38 @@ public class LoginActivity extends BaseActivity {
 
         }
 
-        showProgressDialog();
 
-        mAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etSenha.getText().toString()).
+        try {
+            mAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etSenha.getText().toString()).
 
-                addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                    addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
 
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            etSenha.setText("");//clear etsenha
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                etSenha.setText("");//clear etsenha
 
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            //habilitar cadastro?
-                            isUserAdmin(etEmail.getText().toString());
+                                Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                //habilitar cadastro?
+                                isUserAdmin(etEmail.getText().toString());
 
-                            startActivity(new Intent(LoginActivity.this, Produtos.class));
-                            finish();
+                                startActivity(new Intent(LoginActivity.this, Produtos.class));
+                                finish();
+                            }
+
+                            hideProgressDialog();
+                            // ...
                         }
+                    });
+        }catch (Exception e){
 
-                        hideProgressDialog();
-                        // ...
-                    }
-                });
-
+            myToastCurto("Erro de login" + TAG );
+        }
     }
 
     //validate inputs from email and password

@@ -44,27 +44,7 @@ public class PagamentoActivity extends BaseActivity {
         ButterKnife.bind(this);
 
 
-        CheckoutButton checkoutButton = findViewById(R.id.visaCheckoutButton);
-        checkoutButton.init(this, ConfigureVisaPaymentInfo.getProfile(),
-                ConfigureVisaPaymentInfo.getPurchaseInfo(),
-                new VisaCheckoutSdk.VisaCheckoutResultListener() {
-                    @Override
-                    public void onResult(VisaPaymentSummary visaPaymentSummary) {
-                        if (VisaPaymentSummary.PAYMENT_SUCCESS.equalsIgnoreCase(
-                                visaPaymentSummary.getStatusName())) {
-                            Log.d(TAG, "Success");
-                        } else if (VisaPaymentSummary.PAYMENT_CANCEL.equalsIgnoreCase(
-                                visaPaymentSummary.getStatusName())) {
-                            Log.d(TAG, "Canceled");
-                        } else if (VisaPaymentSummary.PAYMENT_ERROR.equalsIgnoreCase(
-                                visaPaymentSummary.getStatusName())) {
-                            Log.d(TAG, "Error");
-                        } else if (VisaPaymentSummary.PAYMENT_FAILURE.equalsIgnoreCase(
-                                visaPaymentSummary.getStatusName())) {
-                            Log.d(TAG, "Generic Unknown failure");
-                        }
-                    }
-                });
+
 
         spBandeira.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

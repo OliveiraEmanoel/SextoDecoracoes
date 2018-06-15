@@ -1,13 +1,14 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.visa.checkout.CheckoutButton;
+import com.visa.checkout.VisaCheckoutSdk;
+import com.visa.checkout.VisaPaymentSummary;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
     NovoAdapter myAdapter;
     NovoAdapter.Myinterface listener;
     CheckBox checkBox;
-    Button btEfetuarPagamento;
+    //Button btEfetuarPagamento;
     Produto_Tecido produtos = new Produto_Tecido();
     String nameEstampa;
 
@@ -44,7 +45,29 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
         valorTotal = totalCart;//se não for deletado itens...
 
-        btEfetuarPagamento = findViewById(R.id.btEfetuarPagamento);
+        CheckoutButton checkoutButton = findViewById(R.id.visaCheckoutButton);
+        checkoutButton.init(this, ConfigureVisaPaymentInfo.getProfile(),
+                ConfigureVisaPaymentInfo.getPurchaseInfo(),
+                new VisaCheckoutSdk.VisaCheckoutResultListener() {
+                    @Override
+                    public void onResult(VisaPaymentSummary visaPaymentSummary) {
+                        if (VisaPaymentSummary.PAYMENT_SUCCESS.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Success");
+                        } else if (VisaPaymentSummary.PAYMENT_CANCEL.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Canceled");
+                        } else if (VisaPaymentSummary.PAYMENT_ERROR.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Error");
+                        } else if (VisaPaymentSummary.PAYMENT_FAILURE.equalsIgnoreCase(
+                                visaPaymentSummary.getStatusName())) {
+                            Log.d(TAG, "Generic Unknown failure");
+                        }
+                    }
+                });
+
+       // btEfetuarPagamento = findViewById(R.id.btEfetuarPagamento);
 
 
 
@@ -68,22 +91,22 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
         list.setAdapter(myAdapter);
 
-        btEfetuarPagamento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(valorTotal>0){
-                    /* chamar dados pagamento acticity
-                    * passar dados para efetuar o pedido
-                    * salvar pedido
-                    * */
-
-                   // gerarBoleto();
-
-                    startActivity(new Intent(getApplicationContext(),PagamentoActivity.class));
-
-                }else Toast.makeText(getApplicationContext(),"Não há itens no pedido!!",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btEfetuarPagamento.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(valorTotal>0){
+//                    /* chamar dados pagamento acticity
+//                    * passar dados para efetuar o pedido
+//                    * salvar pedido
+//                    * */
+//
+//                   // gerarBoleto();
+//
+//                    startActivity(new Intent(getApplicationContext(),PagamentoActivity.class));
+//
+//                }else Toast.makeText(getApplicationContext(),"Não há itens no pedido!!",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 

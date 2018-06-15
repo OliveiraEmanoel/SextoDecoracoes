@@ -105,19 +105,31 @@
                 android:layout_height="2dp"
                 android:layout_below="@+id/tvTotalCheckout"
                 android:layout_marginTop="16dp"
+                android:visibility="invisible"
                 android:background="#000000"
                 android:id="@+id/view" />
 
-            <Button
-                android:id="@+id/btEfetuarPagamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+            <com.visa.checkout.CheckoutButton
+                android:id="@+id/visaCheckoutButton"
+                android:layout_width="213dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
                 android:layout_below="@+id/view"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="34dp"
-                android:text="Efetuar pagamento"
-                android:textColor="#ffffff"
-                android:background="@drawable/borda_accent"/>
+                android:background="@drawable/standard" />
+
+            <!--<Button-->
+                <!--android:id="@+id/btEfetuarPagamento"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/view"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="34dp"-->
+                <!--android:text="Efetuar pagamento"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:background="@drawable/borda_accent"/>-->
 
 
         </RelativeLayout>

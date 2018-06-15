@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class Produtos extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener{
+public class Produtos extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     @BindView(R.id.rvToYou)
@@ -67,12 +67,13 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         rvToYou = findViewById(R.id.rvToYou);
 
 
-
         //todo isso não estáfuncionando
-        if(isNovidade) {
+        if (isNovidade) {
             Log.e("Produtos", "Novidade = " + isNovidade);
             initializeData();
-        }else {initializeDataForAll();}
+        } else {
+            initializeDataForAll();
+        }
 
         setLayoutAdapter();
 
@@ -81,51 +82,55 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
     private void initializeData() {
 
+        showProgressDialog();
+
         roupasArrayList = new ArrayList<>();
 
         roupasArrayList.clear();//clear previous data
 
         produtoKey.clear();
 
-        
+
         //reference to database
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("produtos");
 
 
-            // Read from the database
-            myRef.child("almofadas").orderByChild("novidade").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+        // Read from the database
+        myRef.child("almofadas").orderByChild("novidade").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
 
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
-                        roupa = roupasSnapshot.getValue(Almofada.class);
+                for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
+                    roupa = roupasSnapshot.getValue(Almofada.class);
 
-                        if (roupa.getIsActive()) {
-                            roupasArrayList.add(roupa);
-                            produtoKey.add(roupasSnapshot.getKey());
-                            Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
+                    if (roupa.getIsActive()) {
+                        roupasArrayList.add(roupa);
+                        produtoKey.add(roupasSnapshot.getKey());
+                        Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
 
 
-                        }
                     }
-                    setLayoutAdapter();
                 }
+                setLayoutAdapter();
+            }
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
-
+        hideProgressDialog();
     }
 
     private void initializeDataForAll() {
 
+        showProgressDialog();
+
         roupasArrayList = new ArrayList<>();
 
         roupasArrayList.clear();//clear previous data
@@ -138,39 +143,39 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("produtos");
 
-       //showing all
-            // Read from the database
-            myRef.child("almofadas").addListenerForSingleValueEvent(new ValueEventListener() {
+        //showing all
+        // Read from the database
+        myRef.child("almofadas").addListenerForSingleValueEvent(new ValueEventListener() {
 
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
-                        roupa = roupasSnapshot.getValue(Almofada.class);
+                for (DataSnapshot roupasSnapshot : dataSnapshot.getChildren()) {
+                    roupa = roupasSnapshot.getValue(Almofada.class);
 
-                        if (roupa.getIsActive()) {
-                            roupasArrayList.add(roupa);
-                            produtoKey.add(roupasSnapshot.getKey());
-                            Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
+                    if (roupa.getIsActive()) {
+                        roupasArrayList.add(roupa);
+                        produtoKey.add(roupasSnapshot.getKey());
+                        Log.d(TAG, "Title: " + roupa.getNome() + ",description " + roupa.getDescription() + " price" + roupa.getPrice());
 
 
-                        }
                     }
-                    setLayoutAdapter();
                 }
+                setLayoutAdapter();
+            }
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
-
+        hideProgressDialog();
     }
 
 
-    private void setLayoutAdapter(){
+    private void setLayoutAdapter() {
 
         //setting layout manager
         LinearLayoutManager llm = new LinearLayoutManager(Produtos.this);
@@ -187,6 +192,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
 
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -202,7 +208,7 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         //habilita cadastro?
-        if (userIsAdmin){
+        if (userIsAdmin) {
             Log.d("MENU ITEM", "onCreate: userAdmin");
 
             MenuItem menuItem = menu.findItem(R.id.action_cadastro);
@@ -225,12 +231,12 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this,ConfigActivity.class));
+            startActivity(new Intent(this, ConfigActivity.class));
             return true;
 
         } else if (id == R.id.action_cadastro) {
 
-            startActivity(new Intent(this,CadastroProdutos.class));
+            startActivity(new Intent(this, CadastroProdutos.class));
             //cadastrar novas fotos
             return true;
 
@@ -248,13 +254,13 @@ public class Produtos extends BaseActivity  implements NavigationView.OnNavigati
         if (id == R.id.nav_almofada) {
             isNovidade = false;
             startActivity(new Intent(getApplicationContext(), Produtos.class));
-        }else if (id == R.id.nav_almofada_novidades) {
+        } else if (id == R.id.nav_almofada_novidades) {
             isNovidade = true;
             startActivity(new Intent(getApplicationContext(), Produtos.class));
-        }else if (id == R.id.nav_cart) {
+        } else if (id == R.id.nav_cart) {
 
             if (nroItensCart < 0) {
-                Toast.makeText(getApplicationContext(),"Carrinho vazio!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Carrinho vazio!!", Toast.LENGTH_SHORT).show();
             } else {
                 startActivity(new Intent(getApplicationContext(), CarrinhoActivity.class));
             }
