@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.com.emanoel.oliveira.sextodecoracoes.activities.PagamentoActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Bandeira" />
+
+    <Spinner
+        android:id="@+id/spBandeira"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:entries="@array/bandeiras" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Nome do titular do cartão" />
+
+    <EditText
+        android:id="@+id/etNomeTitularCartao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textAllCaps="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvnroCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:text="Número do cartão" />
+
+        <EditText
+            android:id="@+id/etNumeroCartao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvnroCard"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:inputType="number"
+            android:padding="8dp"
+            android:text="1234567890123456" />
+
+
+        <TextView
+            android:id="@+id/tvCVV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvnroCard"
+            android:layout_alignEnd="@+id/tvnroCard"
+            android:text="Código de segurança" />
+
+        <EditText
+            android:id="@+id/etCVV"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tvnroCard"
+            android:layout_marginEnd="60dp"
+            android:inputType="number"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvValidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tvnroCard"
+            android:layout_marginTop="109dp"
+            android:padding="8dp"
+            android:text="Validade :" />
+
+        <Spinner
+            android:id="@+id/spMes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvValidade"
+            android:layout_alignEnd="@+id/etNumeroCartao"
+            android:entries="@array/mes"
+            android:padding="8dp" />
+
+        <Spinner
+            android:id="@+id/spAno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/spMes"
+            android:layout_marginEnd="42dp"
+            android:entries="@array/ano"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+
+    <com.visa.checkout.CheckoutButton
+        android:id="@+id/visaCheckoutButton"
+        android:layout_width="213dp"
+        android:layout_height="47dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/standard" />
+
+</LinearLayout>

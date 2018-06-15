@@ -19,12 +19,12 @@ import java.util.HashMap;
 public class ConfigureVisaPaymentInfo {
 
     public static Profile getProfile() {
-        return new Profile.ProfileBuilder("MERCHANT-API-KEY",
-            Environment.SANDBOX).setProfileName("PROFILE")
-            .setDisplayName("Sample App")
+        return new Profile.ProfileBuilder("UEVR9FZNICI1PT3VSK9021bLWv-dXjfv6TloFrJ1rXajx1R9I",
+            Environment.SANDBOX).setProfileName("SYSTEMDEFAULT")
+            .setDisplayName("SEXTO DECORAÇÕES")
             .setMerchantId("123")
             .setDataLevel(Profile.DataLevel.FULL)
-            .setAcceptCanadianVisaDebit(true)
+            .setAcceptCanadianVisaDebit(false)
             .setEnableTokenization(true)
             .setCardBrands(new String[] {
                 Profile.CardBrand.AMEX, Profile.CardBrand.VISA, Profile.CardBrand.MASTERCARD,
@@ -40,7 +40,7 @@ public class ConfigureVisaPaymentInfo {
                 Profile.Country.IN, Profile.Country.IE, Profile.Country.AU, Profile.Country.PL,
                 Profile.Country.MX
             })
-            .setCountryCode(Profile.Country.US)
+            .setCountryCode(Profile.Country.BR)
             .put("any key", "any data")
             .build();
     }
@@ -51,7 +51,7 @@ public class ConfigureVisaPaymentInfo {
         data.put("key1", "value1");
 
         return new PurchaseInfo.PurchaseInfoBuilder(new BigDecimal("10.23"),
-            PurchaseInfo.Currency.USD).setShippingHandling(new BigDecimal("0"))
+            PurchaseInfo.Currency.BRL).setShippingHandling(new BigDecimal("0"))
             .setTax(new BigDecimal("0"))
             .setDiscount(new BigDecimal("0"))
             .setMisc(new BigDecimal("0"))

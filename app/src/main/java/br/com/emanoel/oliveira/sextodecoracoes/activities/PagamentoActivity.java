@@ -1,7 +1,6 @@
 package br.com.emanoel.oliveira.sextodecoracoes.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,25 +15,25 @@ import br.com.emanoel.oliveira.sextodecoracoes.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PagamentoActivity extends BaseActivity{
+public class PagamentoActivity extends BaseActivity {
 
-    @BindView(R.id.etBandeira)
-    EditText etBandeira;
+
+    private static final String TAG = PagamentoActivity.class.getSimpleName();
     @BindView(R.id.spBandeira)
     Spinner spBandeira;
     @BindView(R.id.etNomeTitularCartao)
     EditText etNomeTitularCartao;
     @BindView(R.id.etNumeroCartao)
     EditText etNumeroCartao;
-    @BindView(R.id.etExpira)
-    EditText etExpira;
     @BindView(R.id.etCVV)
     EditText etCVV;
-//    @BindView(R.id.wallet_payment_button)
-//    PaymentButton walletPaymentButton;
-    AppCompatActivity appCompatActivity = this;
+    @BindView(R.id.spMes)
+    Spinner spMes;
+    @BindView(R.id.spAno)
+    Spinner spAno;
+    //@BindView(R.id.visaCheckoutButton)
+   // Button visaCheckoutButton;
 
-    private static final String TAG = PagamentoActivity.class.getSimpleName();
 
 
 
@@ -71,7 +70,31 @@ public class PagamentoActivity extends BaseActivity{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                etBandeira.setText(spBandeira.getItemAtPosition(position).toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
             }
 
             @Override
@@ -82,17 +105,22 @@ public class PagamentoActivity extends BaseActivity{
 
     }
 
+
+//    @OnClick(R.id.visaCheckoutButton)
+//    public void onVisaCheckoutButtonClicked() {
+//    }
+
 //
 //    @OnClick(R.id.wallet_payment_button)
 //    public void onWalletPaymentButtonClicked() {
 
-        /* VALIDAR DADOS
-        * INICIALIZAR LIB
-        * ENVIAR SOLICITAÇÃO PARA O PAGSEGURO
-        * AGUARDAR RESPOSTA
-        * SE RESPOSTA POSITIVA SALVAR PEDIDO
-        * MOSTRAR RESULTADO AO CLIENTE
-        * ZERAR LISTAS E CARRINHO*/
+    /* VALIDAR DADOS
+     * INICIALIZAR LIB
+     * ENVIAR SOLICITAÇÃO PARA O PAGSEGURO
+     * AGUARDAR RESPOSTA
+     * SE RESPOSTA POSITIVA SALVAR PEDIDO
+     * MOSTRAR RESULTADO AO CLIENTE
+     * ZERAR LISTAS E CARRINHO*/
 //        try {
 //            pay("5155901297714587", "06/2023", "920");
 //        } catch (Exception erro) {
@@ -101,7 +129,7 @@ public class PagamentoActivity extends BaseActivity{
 //        }
 
 
-   // }
+    // }
 
 //    private void pay(String number, String expiry, String cvv) {
 //        PSTransparentDefaultRequest psT = new PSTransparentDefaultRequest();
