@@ -63,10 +63,10 @@ public class BaseActivity extends AppCompatActivity {
 
         if (user.equals("emanoel_oliveira@hotmail.com") || user.equals("ed@wxtex.com.br") || user.equals("emanoel@wxtex.com.br")) {
             userIsAdmin = true;
-            return userIsAdmin;
+            return true;
         } else {
 
-            return userIsAdmin;
+            return false;
         }
 
     }

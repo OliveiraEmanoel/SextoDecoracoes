@@ -86,8 +86,7 @@ public class CadastroProdutos extends BaseActivity {
         btLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etTamanho.setText("");
-                etTecido.setText("");
+
                 etDetalhes.setText("");
             }
         });
