@@ -265,7 +265,7 @@ public class Produtos extends BaseActivity implements NavigationView.OnNavigatio
                 startActivity(new Intent(getApplicationContext(), CarrinhoActivity.class));
             }
         } else if (id == R.id.nav_sair) {
-
+            finishAffinity();
             System.exit(0);
 
         }

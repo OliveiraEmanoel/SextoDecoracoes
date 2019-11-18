@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         } else {
 
-            return false;
+            return userIsAdmin;
         }
 
     }

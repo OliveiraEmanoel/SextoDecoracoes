@@ -215,7 +215,7 @@ public class LoginActivity extends BaseActivity {
                     });
         } catch (Exception error) {
 
-            myToastCurto(error.toString());
+            myToastCurto("Usuário/Senha invalido(a)");
         }
     }
 
