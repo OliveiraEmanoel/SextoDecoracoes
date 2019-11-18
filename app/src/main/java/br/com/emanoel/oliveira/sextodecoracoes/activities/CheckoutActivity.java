@@ -67,16 +67,7 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
                     }
                 });
 
-       // btEfetuarPagamento = findViewById(R.id.btEfetuarPagamento);
 
-
-
-
-        //startPagseguroLib("emanoel_oliveira@hotmail.com",
-               // "B47679B87C564831B6049737174735BD",R.layout.activity_checkout,this);
-
-
-        //myAdapter.atualizaTotal();
 
         list = findViewById(R.id.lvCheckout);
 
@@ -91,22 +82,7 @@ public class CheckoutActivity extends BaseActivity implements NovoAdapter.Myinte
 
         list.setAdapter(myAdapter);
 
-//        btEfetuarPagamento.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(valorTotal>0){
-//                    /* chamar dados pagamento acticity
-//                    * passar dados para efetuar o pedido
-//                    * salvar pedido
-//                    * */
-//
-//                   // gerarBoleto();
-//
-//                    startActivity(new Intent(getApplicationContext(),PagamentoActivity.class));
-//
-//                }else Toast.makeText(getApplicationContext(),"Não há itens no pedido!!",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
     }
 

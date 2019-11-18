@@ -198,8 +198,8 @@ public class LoginActivity extends BaseActivity {
 
 
                             if (!task.isSuccessful()) {
-//                                Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException(),
-//                                        Toast.LENGTH_SHORT).show();
+                               Toast.makeText(LoginActivity.this, R.string.auth_failed + task.getException().toString(),
+                                        Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
                             } else {
 

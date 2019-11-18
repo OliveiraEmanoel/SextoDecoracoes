@@ -68,7 +68,8 @@ public class CarrinhoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //checkout
-                startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+               // startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+                myToastCurto("Tokem Visa perdeu a validade!");
             }
         });
         btAddItem = findViewById(R.id.btAddItem);

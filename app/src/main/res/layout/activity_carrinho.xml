@@ -62,6 +62,7 @@
         android:layout_alignTop="@+id/btAddItem"
         android:background="@drawable/borda_accent"
         android:padding="6dp"
+        android:enabled="false"
         android:text="finalizar compra"
         android:textColor="#404040" />
 

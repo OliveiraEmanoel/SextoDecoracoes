@@ -61,7 +61,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public Boolean isUserAdmin(String user) {
 
-        if (user.equals("emanoel_oliveira@hotmail.com") || user.equals("ed@wxtex.com.br") || user.equals("emanoel@wxtex.com.br")) {
+        if (user.equals("emanoel_oliveira@hotmail.com") || user.equals("ed@wxtex.com.br") || user.equals("teste@teste.com.br")) {
             userIsAdmin = true;
             return true;
         } else {
